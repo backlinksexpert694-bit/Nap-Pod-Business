@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NapNest Pakistan — Rest. Recharge. Return.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #112240;
+    --navy-mid: #1a3158;
+    --amber: #c8860a;
+    --amber-light: #f0a830;
+    --amber-glow: #ffc84a;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0d0;
+    --white: #ffffff;
+    --text-muted: #8a9ab5;
+    --text-body: #c8d4e8;
+    --border: rgba(200,134,10,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-body);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 2px; }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.3;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    color: var(--white); letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--amber-light); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--amber-light); }
+
+  .nav-cta {
+    background: var(--amber); color: var(--navy) !important;
+    padding: 0.5rem 1.2rem; border-radius: 4px;
+    font-weight: 600 !important; transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--amber-light) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5% 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(200,134,10,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(17,34,64,0.8) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--amber) 1px, transparent 1px),
+      linear-gradient(90deg, var(--amber) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 720px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,134,10,0.12); border: 1px solid var(--border);
+    border-radius: 100px; padding: 0.4rem 1rem; margin-bottom: 2rem;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--amber-light);
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--amber-light);
+    box-shadow: 0 0 8px var(--amber-light);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--white); letter-spacing: -0.03em;
+    animation: fadeDown 0.8s 0.1s ease both;
+  }
+  h1 em { color: var(--amber-light); font-style: normal; }
+
+  .hero-sub {
+    font-size: 1.15rem; color: var(--text-muted); margin: 1.5rem 0 2.5rem;
+    max-width: 540px; font-weight: 300;
+    animation: fadeDown 0.8s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeDown 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--amber); color: var(--navy);
+    padding: 0.85rem 2rem; border-radius: 6px;
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+    border: none; cursor: pointer; transition: all 0.3s;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,134,10,0.3); }
+
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2rem; border-radius: 6px;
+    font-weight: 500; font-size: 0.95rem; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--amber-light); color: var(--amber-light); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    animation: fadeDown 0.8s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--white); display: block;
+  }
+  .stat-num span { color: var(--amber-light); }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: min(400px, 40vw);
+    animation: fadeLeft 1s 0.5s ease both;
+  }
+
+  .pod-illustration {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+    border-radius: 20px; border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,134,10,0.1);
+  }
+
+  .pod-inner {
+    position: absolute; inset: 15px;
+    background: linear-gradient(180deg, rgba(200,134,10,0.05) 0%, transparent 40%);
+    border-radius: 12px; border: 1px solid rgba(200,134,10,0.15);
+  }
+  .pod-light {
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber-light), transparent);
+    box-shadow: 0 0 20px var(--amber);
+    animation: ambientLight 3s ease-in-out infinite alternate;
+  }
+  .pod-mattress {
+    position: absolute; bottom: 20%; left: 10%; right: 10%; height: 18%;
+    background: linear-gradient(180deg, #2a4070, #1a2d50);
+    border-radius: 8px; border: 1px solid rgba(200,134,10,0.1);
+  }
+  .pod-pillow {
+    position: absolute; bottom: calc(20% + 10px); left: 12%; width: 22%; height: 12%;
+    background: #f0e8d8; border-radius: 6px; opacity: 0.7;
+  }
+  .pod-screen {
+    position: absolute; top: 20%; right: 20px; width: 30%; height: 25%;
+    background: rgba(200,134,10,0.1); border-radius: 6px;
+    border: 1px solid rgba(200,134,10,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pod-screen::after {
+    content: '21:30'; font-family: 'DM Mono', monospace;
+    font-size: 0.8rem; color: var(--amber-light);
+  }
+  .pod-label {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--amber); color: var(--navy);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 0.2rem 0.8rem; border-radius: 100px; text-transform: uppercase; white-space: nowrap;
+  }
+
+  @keyframes ambientLight {
+    from { opacity: 0.5; box-shadow: 0 0 10px var(--amber); }
+    to { opacity: 1; box-shadow: 0 0 30px var(--amber-light); }
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 5%; position: relative; }
+  .section-tag {
+    display: inline-block; font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; color: var(--amber-light); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-tag::before { content: '// '; opacity: 0.5; }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+    color: var(--white); line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  h2 em { color: var(--amber-light); font-style: normal; }
+
+  .section-desc { color: var(--text-muted); max-width: 540px; font-size: 1rem; margin-bottom: 3rem; font-weight: 300; }
+
+  .divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  #problem { background: var(--navy-light); }
+
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+  .problem-cards { display: grid; gap: 1rem; }
+
+  .problem-card {
+    background: var(--navy); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .problem-card:hover { border-color: var(--amber); transform: translateX(6px); }
+
+  .p-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: rgba(200,134,10,0.1); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .p-title { font-weight: 600; color: var(--white); margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .p-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── PODS ── */
+  #pods { position: relative; }
+
+  .pods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+  .pod-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .pod-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+  .pod-card.featured { border-color: var(--amber); }
+
+  .pod-card-header {
+    padding: 2rem 2rem 1.5rem;
+    background: linear-gradient(135deg, rgba(200,134,10,0.05), transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .pod-tier {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber-light); margin-bottom: 0.5rem;
+  }
+  .pod-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--white); }
+  .pod-price { margin-top: 1rem; }
+  .pod-price .amount {
+    font-family: 'DM Mono', monospace; font-size: 2rem;
+    font-weight: 500; color: var(--amber-light);
+  }
+  .pod-price .unit { font-size: 0.8rem; color: var(--text-muted); margin-left: 0.3rem; }
+
+  .featured-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--amber); color: var(--navy);
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem; border-radius: 100px; text-transform: uppercase;
+  }
+
+  .pod-card-body { padding: 1.5rem 2rem 2rem; }
+
+  .pod-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .pod-features li {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.88rem; color: var(--text-body);
+  }
+  .pod-features li::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--amber-light); flex-shrink: 0;
+  }
+
+  .pod-size { margin-top: 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── BMC ── */
+  #bmc { background: var(--navy-light); }
+
+  .bmc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    margin-top: 3rem;
+  }
+
+  .bmc-cell {
+    background: var(--navy-light); padding: 1.5rem;
+    transition: background 0.3s;
+  }
+  .bmc-cell:hover { background: var(--navy-mid); }
+  .bmc-cell.wide { grid-column: span 2; }
+  .bmc-cell.full { grid-column: span 3; }
+
+  .bmc-label {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--amber-light); margin-bottom: 0.7rem;
+  }
+  .bmc-title { font-weight: 700; color: var(--white); font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .bmc-items { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+  .bmc-items li { font-size: 0.8rem; color: var(--text-muted); padding-left: 1rem; position: relative; }
+  .bmc-items li::before { content: '—'; position: absolute; left: 0; color: var(--amber); opacity: 0.6; }
+
+  /* ── MARKET ── */
+  #market { }
+
+  .segments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+  .segment-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem; transition: all 0.3s;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .segment-card:hover { border-color: var(--amber-light); transform: translateY(-4px); }
+
+  .seg-num {
+    font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900;
+    color: rgba(200,134,10,0.2); line-height: 1;
+  }
+  .seg-title { font-weight: 700; color: var(--white); font-size: 1.1rem; }
+  .seg-age { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--amber-light); }
+  .seg-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── SWOT ── */
+  #swot { background: var(--navy-light); }
+
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+
+  .swot-card {
+    background: var(--navy); border-radius: 12px; padding: 2rem;
+    border: 1px solid var(--border);
+  }
+  .swot-label {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.2rem;
+  }
+  .swot-s .swot-label { color: #4ade80; }
+  .swot-w .swot-label { color: #fb923c; }
+  .swot-o .swot-label { color: #60a5fa; }
+  .swot-t .swot-label { color: #f87171; }
+
+  .swot-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .swot-s .swot-dot { background: #4ade80; }
+  .swot-w .swot-dot { background: #fb923c; }
+  .swot-o .swot-dot { background: #60a5fa; }
+  .swot-t .swot-dot { background: #f87171; }
+
+  .swot-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .swot-items li { font-size: 0.83rem; color: var(--text-muted); padding-left: 1rem; position: relative; line-height: 1.5; }
+  .swot-items li::before { content: '→'; position: absolute; left: 0; }
+  .swot-s .swot-items li::before { color: #4ade80; }
+  .swot-w .swot-items li::before { color: #fb923c; }
+  .swot-o .swot-items li::before { color: #60a5fa; }
+  .swot-t .swot-items li::before { color: #f87171; }
+
+  /* ── FINANCIALS ── */
+  #financials { }
+
+  .fin-overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+
+  .fin-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; text-align: center;
+  }
+  .fin-amount {
+    font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800;
+    color: var(--amber-light); display: block; margin-bottom: 0.3rem;
+  }
+  .fin-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .fin-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .fin-table th {
+    text-align: left; padding: 0.8rem 1rem;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber-light);
+    border-bottom: 1px solid var(--border);
+  }
+  .fin-table td {
+    padding: 0.8rem 1rem; font-size: 0.88rem; color: var(--text-body);
+    border-bottom: 1px solid rgba(200,134,10,0.06);
+  }
+  .fin-table tr:last-child td { border-bottom: none; font-weight: 700; color: var(--white); }
+  .fin-table tr:hover td { background: rgba(200,134,10,0.04); }
+  .fin-table td:last-child { color: var(--amber-light); font-family: 'DM Mono', monospace; }
+
+  .fin-tables-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .fin-table-wrap {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .fin-table-title {
+    padding: 1rem 1.2rem; font-weight: 600; color: var(--white);
+    border-bottom: 1px solid var(--border); font-size: 0.9rem;
+    background: rgba(200,134,10,0.04);
+  }
+
+  .projection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+
+  .proj-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; position: relative;
+  }
+  .proj-card.highlight { border-color: var(--amber); }
+
+  .proj-year {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--amber-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+  }
+  .proj-rev {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem;
+    font-weight: 800; color: var(--white); margin-bottom: 0.3rem;
+  }
+  .proj-rev span { color: var(--amber-light); }
+  .proj-detail { font-size: 0.8rem; color: var(--text-muted); }
+  .proj-bar {
+    margin-top: 1rem; height: 4px; border-radius: 2px;
+    background: var(--border);
+  }
+  .proj-bar-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--amber), var(--amber-glow));
+    transition: width 1s ease;
+  }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--navy-light); }
+
+  .pricing-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .pricing-table th {
+    padding: 1rem 1.2rem; text-align: left;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber-light);
+    border-bottom: 2px solid var(--border);
+  }
+  .pricing-table td {
+    padding: 1rem 1.2rem; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(200,134,10,0.06);
+    color: var(--text-body); vertical-align: middle;
+  }
+  .pricing-table tr:hover td { background: rgba(200,134,10,0.03); }
+  .pkg-name { font-weight: 600; color: var(--white); }
+  .pkg-price { font-family: 'DM Mono', monospace; color: var(--amber-light); font-size: 0.95rem; }
+  .pkg-badge {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    padding: 0.2rem 0.5rem; border-radius: 100px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .badge-eco { background: rgba(74,222,128,0.1); color: #4ade80; }
+  .badge-std { background: rgba(96,165,250,0.1); color: #60a5fa; }
+  .badge-pre { background: rgba(200,134,10,0.2); color: var(--amber-light); }
+  .badge-mem { background: rgba(167,139,250,0.1); color: #c084fc; }
+  .badge-corp { background: rgba(251,146,60,0.1); color: #fb923c; }
+
+  /* ── TEAM ── */
+  #team { }
+
+  .team-header { text-align: center; margin-bottom: 3rem; }
+  .team-header .section-desc { margin: 0 auto; text-align: center; }
+
+  .team-meta { margin-bottom: 2rem; }
+  .meta-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1rem; }
+  .meta-item { font-size: 0.85rem; color: var(--text-muted); }
+  .meta-item strong { color: var(--white); font-weight: 600; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+  .team-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; text-align: center;
+    transition: all 0.3s;
+  }
+  .team-card:hover { border-color: var(--amber-light); transform: translateY(-4px); }
+
+  .team-avatar {
+    width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 1rem;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy));
+    border: 2px solid var(--border); display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: var(--amber-light);
+  }
+  .team-name { font-weight: 700; color: var(--white); margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .team-roll { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
+  .team-section { font-size: 0.78rem; color: var(--amber-light); margin-top: 0.3rem; }
+
+  .uni-box {
+    margin-top: 2.5rem; text-align: center; padding: 1.5rem;
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .uni-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); font-weight: 700; }
+  .uni-dept { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+  .uni-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
+  .uni-sub strong { color: var(--amber-light); }
+
+  /* ── CONCLUSION ── */
+  #conclusion {
+    background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+    border-top: 1px solid var(--border);
+  }
+
+  .conclusion-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+  .conclusion-points { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .conclusion-points li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: rgba(200,134,10,0.05); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem;
+  }
+  .c-check {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(74,222,128,0.1); border: 1px solid #4ade80;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: #4ade80; font-size: 0.8rem; font-weight: 700;
+  }
+  .c-text { font-size: 0.88rem; color: var(--text-body); line-height: 1.5; }
+
+  .tagline-box {
+    background: var(--navy); border: 1px solid var(--border);
+    border-radius: 16px; padding: 3rem; text-align: center;
+  }
+  .tagline-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900; color: var(--white);
+    letter-spacing: -0.02em; line-height: 1.2;
+  }
+  .tagline-main em { color: var(--amber-light); font-style: normal; display: block; }
+  .tagline-sub { color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem; }
+
+  .breakeven-bar { margin-top: 2rem; }
+  .be-label { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.78rem; color: var(--text-muted); }
+  .be-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .be-fill {
+    height: 100%; width: 55%; border-radius: 4px;
+    background: linear-gradient(90deg, var(--amber), var(--amber-glow));
+  }
+  .be-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; text-align: right; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); border-top: 1px solid var(--border);
+    padding: 3rem 5% 2rem;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2rem; }
+  .footer-brand .nav-logo { font-size: 1.8rem; }
+  .footer-tagline { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; }
+  .footer-info { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; }
+  .footer-info strong { color: var(--text-body); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1.5rem; border-top: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--text-muted); flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom a { color: var(--amber-light); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translate(30px, -50%); }
+    to { opacity: 1; transform: translate(0, -50%); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-visual { display: none; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .pods-grid { grid-template-columns: 1fr; }
+    .bmc-grid { grid-template-columns: 1fr; }
+    .bmc-cell.wide, .bmc-cell.full { grid-column: span 1; }
+    .segments-grid { grid-template-columns: 1fr; }
+    .swot-grid { grid-template-columns: 1fr; }
+    .fin-overview { grid-template-columns: repeat(2, 1fr); }
+    .fin-tables-row { grid-template-columns: 1fr; }
+    .projection-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .conclusion-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Nap<span>Nest</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#pods">Pods</a></li>
+    <li><a href="#bmc">Business Model</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#financials">Financials</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#conclusion" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Pakistan's First Sleep Pod Startup</div>
+    <h1>Urban Pakistan<br/>Deserves to <em>Rest</em></h1>
+    <p class="hero-sub">NapNest Pakistan introduces commercially managed, individually enclosed rest pods to high-traffic urban locations — because you deserve a quiet place to recharge mid-day.</p>
+    <div class="hero-actions">
+      <a href="#pods" class="btn-primary">Explore Pods</a>
+      <a href="#bmc" class="btn-outline">Business Model</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">PKR <span>35.2M</span></span>
+        <span class="stat-label">Startup Investment</span>
+      </div>
+      <div>
+        <span class="stat-num">20<span> Pods</span></span>
+        <span class="stat-label">Pilot Facility</span>
+      </div>
+      <div>
+        <span class="stat-num">18–22<span> Mo</span></span>
+        <span class="stat-label">Break-Even</span>
+      </div>
+      <div>
+        <span class="stat-num">26–32<span>%</span></span>
+        <span class="stat-label">ROI Year 3</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="pod-illustration">
+      <div class="pod-label">Premium Pod</div>
+      <div class="pod-inner">
+        <div class="pod-light"></div>
+        <div class="pod-screen"></div>
+        <div class="pod-mattress"></div>
+        <div class="pod-pillow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-grid">
+    <div class="reveal">
+      <span class="section-tag">The Problem</span>
+      <h2>Pakistan's Cities Are <em>Exhausting</em></h2>
+      <p class="section-desc">Millions of students, professionals, and travellers spend their days in loud, crowded environments — with absolutely nowhere clean and private to rest.</p>
+    </div>
+    <div class="problem-cards reveal">
+      <div class="problem-card">
+        <div class="p-icon">🚌</div>
+        <div>
+          <div class="p-title">90+ Minute Commutes</div>
+          <div class="p-desc">Average commute in Lahore and Karachi exceeds 90 minutes each way — draining energy before the workday even begins.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">🎓</div>
+        <div>
+          <div class="p-title">Students With No Space</div>
+          <div class="p-desc">2–4 hour gaps between classes leave 1.7M+ urban students with nowhere appropriate to rest or recharge.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">✈️</div>
+        <div>
+          <div class="p-title">Stranded Travellers</div>
+          <div class="p-desc">8M+ annual Islamabad Airport passengers — many arriving at 3 AM — have no affordable, hygienic rest option nearby.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="p-icon">💻</div>
+        <div>
+          <div class="p-title">Zero Mid-Day Rest Options</div>
+          <div class="p-desc">Cafés don't allow sleeping. Hotels require full-day bookings. Cars become ovens in summer. There is no solution — yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PODS -->
+<section id="pods">
+  <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 1rem;">
+    <span class="section-tag">Pod Tiers</span>
+    <h2>Three Levels of <em>Rest</em></h2>
+    <p class="section-desc" style="margin: 0 auto;">Designed for every budget — from students to corporate professionals. Every pod includes a clean mattress, privacy lock, and USB charging.</p>
+  </div>
+  <div class="pods-grid reveal">
+    <!-- Economy -->
+    <div class="pod-card">
+      <div class="pod-card-header">
+        <div class="pod-tier">Tier 01</div>
+        <div class="pod-name">Economy</div>
+        <div class="pod-price">
+          <span class="amount">PKR 300</span><span class="unit">/ hour</span>
+        </div>
+      </div>
+      <div class="pod-card-body">
+        <ul class="pod-features">
+          <li>Firm foam mattress</li>
+          <li>Privacy curtain + soft-close door</li>
+          <li>USB charging port</li>
+          <li>Individual ventilation</li>
+          <li>Session timer display</li>
+          <li>Post-session sanitisation</li>
+        </ul>
+        <div class="pod-size">Dimensions: 1.9m × 0.9m × 1.1m</div>
+      </div>
+    </div>
+    <!-- Standard -->
+    <div class="pod-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="pod-card-header">
+        <div class="pod-tier">Tier 02</div>
+        <div class="pod-name">Standard</div>
+        <div class="pod-price">
+          <span class="amount">PKR 500</span><span class="unit">/ hour</span>
+        </div>
+      </div>
+      <div class="pod-card-body">
+        <ul class="pod-features">
+          <li>Memory foam mattress</li>
+          <li>3-setting LED mood lighting</li>
+          <li>Personal shelf and hook</li>
+          <li>Strong privacy lock</li>
+          <li>Individual WiFi login</li>
+          <li>USB charging + full ventilation</li>
+          <li>Digital hygiene logging</li>
+        </ul>
+        <div class="pod-size">Dimensions: 2.0m × 1.1m × 1.2m</div>
+      </div>
+    </div>
+    <!-- Premium -->
+    <div class="pod-card">
+      <div class="pod-card-header">
+        <div class="pod-tier">Tier 03</div>
+        <div class="pod-name">Premium</div>
+        <div class="pod-price">
+          <span class="amount">PKR 850</span><span class="unit">/ hour</span>
+        </div>
+      </div>
+      <div class="pod-card-body">
+        <ul class="pod-features">
+          <li>All Standard features</li>
+          <li>Motorised blackout blind</li>
+          <li>Mounted adjustable tablet</li>
+          <li>Bluetooth speaker</li>
+          <li>Premium pillow + neck bolster</li>
+          <li>Complimentary hygiene kit</li>
+          <li>Eye mask, earplugs, sanitiser</li>
+        </ul>
+        <div class="pod-size">Dimensions: 2.1m × 1.3m × 1.3m</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BMC -->
+<section id="bmc">
+  <div class="reveal">
+    <span class="section-tag">Business Model Canvas</span>
+    <h2>How <em>NapNest</em> Creates Value</h2>
+    <p class="section-desc">A complete strategic overview of all nine building blocks of the NapNest Pakistan business model.</p>
+  </div>
+  <div class="bmc-grid reveal">
+    <!-- Row 1 -->
+    <div class="bmc-cell">
+      <div class="bmc-label">Key Partners</div>
+      <ul class="bmc-items">
+        <li>Guangdong pod manufacturer</li>
+        <li>JazzCash & EasyPaisa</li>
+        <li>Commercial real estate / malls</li>
+        <li>Software development house</li>
+        <li>University administrations</li>
+        <li>CAAP (airport concessions)</li>
+      </ul>
+    </div>
+    <div class="bmc-cell">
+      <div class="bmc-label">Key Activities</div>
+      <ul class="bmc-items">
+        <li>Pod operations & hygiene protocol</li>
+        <li>App & booking system management</li>
+        <li>Digital marketing & content</li>
+        <li>Corporate B2B sales</li>
+        <li>Location scouting & expansion</li>
+      </ul>
+    </div>
+    <div class="bmc-cell" rowspan="2">
+      <div class="bmc-label">Value Proposition</div>
+      <ul class="bmc-items">
+        <li><strong style="color:var(--white)">Privacy</strong> — fully enclosed, lockable pods</li>
+        <li><strong style="color:var(--white)">Hygiene</strong> — logged sanitisation every session</li>
+        <li><strong style="color:var(--white)">Affordability</strong> — from PKR 300/hour</li>
+        <li><strong style="color:var(--white)">Convenience</strong> — app booking, digital payment</li>
+        <li><strong style="color:var(--white)">Productivity</strong> — science-backed rest benefits</li>
+      </ul>
+    </div>
+    <!-- Row 2 -->
+    <div class="bmc-cell">
+      <div class="bmc-label">Key Resources</div>
+      <ul class="bmc-items">
+        <li>20 pods (3 tiers)</li>
+        <li>Leased 2,000 sq ft facility</li>
+        <li>NapNest app & booking system</li>
+        <li>Hygiene tech & ops staff</li>
+        <li>CCTV & access control</li>
+      </ul>
+    </div>
+    <div class="bmc-cell">
+      <div class="bmc-label">Customer Relationships</div>
+      <ul class="bmc-items">
+        <li>Self-service app experience</li>
+        <li>Loyalty: 1 free session / 10 visits</li>
+        <li>Monthly membership subscriptions</li>
+        <li>Dedicated corporate account managers</li>
+        <li>5-min in-person orientation</li>
+      </ul>
+    </div>
+    <!-- Row 3 full -->
+    <div class="bmc-cell">
+      <div class="bmc-label">Customer Segments</div>
+      <ul class="bmc-items">
+        <li>University students (18–26)</li>
+        <li>Urban professionals (25–50)</li>
+        <li>Domestic travellers & transit passengers</li>
+        <li>Freelancers & remote workers</li>
+        <li>Corporate B2B clients (HR departments)</li>
+      </ul>
+    </div>
+    <div class="bmc-cell">
+      <div class="bmc-label">Channels</div>
+      <ul class="bmc-items">
+        <li>NapNest mobile app (Android & iOS)</li>
+        <li>Walk-in reception desk (24/7)</li>
+        <li>Instagram, TikTok, YouTube</li>
+        <li>Campus ambassador programme</li>
+        <li>Direct B2B corporate outreach</li>
+      </ul>
+    </div>
+    <!-- Bottom row -->
+    <div class="bmc-cell wide">
+      <div class="bmc-label">Cost Structure</div>
+      <ul class="bmc-items" style="display:grid; grid-template-columns:1fr 1fr; gap:0.3rem 2rem;">
+        <li>Pod procurement: PKR 17.2M</li>
+        <li>Facility fit-out: PKR 7.5M</li>
+        <li>Technology development: PKR 2.8M</li>
+        <li>Monthly rent: PKR 550,000</li>
+        <li>Staff salaries: PKR 380,000/mo</li>
+        <li>Marketing: PKR 80,000/mo</li>
+      </ul>
+    </div>
+    <div class="bmc-cell">
+      <div class="bmc-label">Revenue Streams</div>
+      <ul class="bmc-items">
+        <li>Per-hour pod bookings</li>
+        <li>Monthly memberships</li>
+        <li>Corporate wellness packages</li>
+        <li>Ancillary services (lockers, desk, vending)</li>
+        <li>White-label corporate pod installs (Yr2)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MARKET -->
+<section id="market">
+  <div class="reveal">
+    <span class="section-tag">Target Market</span>
+    <h2>Four <em>Distinct</em> Customer Segments</h2>
+    <p class="section-desc">Each segment has different needs, price sensitivity, and usage patterns — NapNest is designed to serve all four.</p>
+  </div>
+  <div class="segments-grid reveal">
+    <div class="segment-card">
+      <div class="seg-num">01</div>
+      <div class="seg-title">University Students</div>
+      <div class="seg-age">Ages 18–26 · High Volume</div>
+      <div class="seg-desc">Pakistan's 1.87M urban students face irregular schedules with 2–4 hour inter-class gaps, long commutes, and limited budgets. Islamabad pilot targets ~130,000 students across NUST, QAU, COMSATS, IIU, and Air University. 5% using NapNest twice monthly = 13,000 sessions at PKR 300.</div>
+    </div>
+    <div class="segment-card">
+      <div class="seg-num">02</div>
+      <div class="seg-title">Urban Professionals</div>
+      <div class="seg-age">Ages 25–50 · Highest Value</div>
+      <div class="seg-desc">Corporate employees, lawyers, doctors, bankers, and freelancers in demanding roles with disposable income. Most natural fit for monthly memberships and corporate wellness packages. 150,000–250,000 potential customers in Islamabad's commercial zones alone.</div>
+    </div>
+    <div class="segment-card">
+      <div class="seg-num">03</div>
+      <div class="seg-title">Domestic Travellers</div>
+      <div class="seg-age">Transit Passengers · High Motivation</div>
+      <div class="seg-desc">Islamabad International Airport handles 8.1M passengers annually (~22,000/day). Just 2% of daily passengers using a pod for 90 minutes at PKR 400/hour = PKR 264,000/day from a single traveller-segment location.</div>
+    </div>
+    <div class="segment-card">
+      <div class="seg-num">04</div>
+      <div class="seg-title">Freelancers & Remote Workers</div>
+      <div class="seg-age">Digital Nomads · Growing Fast</div>
+      <div class="seg-desc">Pakistan ranks among the top 5 fastest-growing freelance economies globally (Payoneer 2022). These workers already pay for productive spaces by the hour. NapNest's pods + quiet work zone is a uniquely practical offering for this group.</div>
+    </div>
+  </div>
+
+  <!-- Industry Trends -->
+  <div style="margin-top: 4rem;" class="reveal">
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--white); margin-bottom:1.5rem;">Key Industry Trends</h3>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1rem;">
+      <div class="problem-card"><div class="p-icon">🏙️</div><div><div class="p-title">Rapid Urbanisation</div><div class="p-desc">Pakistan's urban population growing at 2.7%/year — among South Asia's fastest. Structural trend that will not reverse.</div></div></div>
+      <div class="problem-card"><div class="p-icon">🧠</div><div><div class="p-title">Wellness Awareness Rising</div><div class="p-desc">COVID-19 accelerated conversations about sleep, burnout, and mental health among Pakistan's educated urban youth.</div></div></div>
+      <div class="problem-card"><div class="p-icon">📱</div><div><div class="p-title">Digital Payment Adoption</div><div class="p-desc">JazzCash 25M+ users. EasyPaisa 20M+ users. Infrastructure for app-based booking already exists and is thriving.</div></div></div>
+      <div class="problem-card"><div class="p-icon">💼</div><div><div class="p-title">Freelance Economy Boom</div><div class="p-desc">Pakistan is a top-5 fastest growing freelance market globally — a ready-made audience already paying for productive environments.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SWOT -->
+<section id="swot">
+  <div class="reveal" style="text-align:center; max-width:600px; margin: 0 auto 1rem;">
+    <span class="section-tag">SWOT Analysis</span>
+    <h2>Strategic <em>Position</em></h2>
+    <p class="section-desc" style="margin:0 auto;">Internal capabilities and external environment — assessed with full transparency.</p>
+  </div>
+  <div class="swot-grid reveal">
+    <div class="swot-card swot-s">
+      <div class="swot-label"><div class="swot-dot"></div>Strengths (Internal)</div>
+      <ul class="swot-items">
+        <li>First-mover advantage — no direct competitors in Pakistan</li>
+        <li>Globally proven model with 40+ years of validation</li>
+        <li>Diversified revenue (walk-in, membership, corporate B2B)</li>
+        <li>Strong unit economics per pod session</li>
+        <li>Compatible with Pakistan's digital payment infrastructure</li>
+        <li>Clear segment-specific pricing (PKR 300–850)</li>
+        <li>Scalable: each new location replicates the tested formula</li>
+      </ul>
+    </div>
+    <div class="swot-card swot-w">
+      <div class="swot-label"><div class="swot-dot"></div>Weaknesses (Internal)</div>
+      <ul class="swot-items">
+        <li>High capital requirements: PKR 35.2M upfront</li>
+        <li>Long break-even: 18–22 months</li>
+        <li>Zero brand recognition at launch</li>
+        <li>Dependency on single international pod supplier</li>
+        <li>Staff-dependent hygiene consistency across all shifts</li>
+        <li>Fixed-cost-heavy: rent + salaries = 73% of monthly costs</li>
+      </ul>
+    </div>
+    <div class="swot-card swot-o">
+      <div class="swot-label"><div class="swot-dot"></div>Opportunities (External)</div>
+      <ul class="swot-items">
+        <li>Urban population growing at 2.7%/year</li>
+        <li>Middle class: 38M (2020) → 70M+ by 2030 (ADB)</li>
+        <li>Airport concession model: CAAP partnerships</li>
+        <li>Corporate wellness market expanding</li>
+        <li>Geographic rollout: Lahore, Karachi, Faisalabad in 3 years</li>
+        <li>Franchise/licensing model to secondary cities</li>
+      </ul>
+    </div>
+    <div class="swot-card swot-t">
+      <div class="swot-label"><div class="swot-dot"></div>Threats (External)</div>
+      <ul class="swot-items">
+        <li>Cultural resistance to resting in commercial shared spaces</li>
+        <li>Copycat risk once NapNest proves the market</li>
+        <li>Macroeconomic instability eroding PKR purchasing power</li>
+        <li>Load-shedding disrupting climate-control systems</li>
+        <li>Rising commercial rents in Islamabad's Blue Area</li>
+        <li>Reputational risk from any hygiene incident</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="reveal">
+    <span class="section-tag">Financial Overview</span>
+    <h2>Built on <em>Solid Numbers</em></h2>
+    <p class="section-desc">Conservative projections. All figures in PKR. Based on 20-pod pilot, Islamabad Blue Area.</p>
+  </div>
+
+  <div class="fin-overview reveal">
+    <div class="fin-card">
+      <span class="fin-amount">35.2M</span>
+      <div class="fin-label">Total Startup Investment</div>
+    </div>
+    <div class="fin-card">
+      <span class="fin-amount">2.15M</span>
+      <div class="fin-label">Monthly Revenue (Yr 1)</div>
+    </div>
+    <div class="fin-card">
+      <span class="fin-amount">867K</span>
+      <div class="fin-label">Monthly Surplus (Yr 1)</div>
+    </div>
+    <div class="fin-card">
+      <span class="fin-amount">1.82M</span>
+      <div class="fin-label">Monthly Surplus (Yr 2)</div>
+    </div>
+  </div>
+
+  <div class="fin-tables-row reveal">
+    <div class="fin-table-wrap">
+      <div class="fin-table-title">📋 Startup Cost Breakdown</div>
+      <table class="fin-table">
+        <thead><tr><th>Category</th><th>Amount (PKR)</th></tr></thead>
+        <tbody>
+          <tr><td>Pod Procurement (20 units)</td><td>17,200,000</td></tr>
+          <tr><td>Facility Fit-Out</td><td>7,500,000</td></tr>
+          <tr><td>Technology (App, Access Control)</td><td>2,800,000</td></tr>
+          <tr><td>Branding & Pre-Launch Marketing</td><td>1,400,000</td></tr>
+          <tr><td>Advance Rent (3 months)</td><td>1,650,000</td></tr>
+          <tr><td>Legal & Compliance</td><td>350,000</td></tr>
+          <tr><td>Working Capital Reserve (6 mo)</td><td>4,300,000</td></tr>
+          <tr><td>TOTAL INVESTMENT</td><td>35,200,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fin-table-wrap">
+      <div class="fin-table-title">📊 Monthly Operating Costs</div>
+      <table class="fin-table">
+        <thead><tr><th>Expense</th><th>Monthly (PKR)</th></tr></thead>
+        <tbody>
+          <tr><td>Facility Rent (Blue Area ~2,000 sqft)</td><td>550,000</td></tr>
+          <tr><td>Staff Salaries (7 staff)</td><td>380,000</td></tr>
+          <tr><td>Electricity, HVAC, Utilities</td><td>130,000</td></tr>
+          <tr><td>Consumables & Cleaning Supplies</td><td>90,000</td></tr>
+          <tr><td>Digital Marketing & Content</td><td>80,000</td></tr>
+          <tr><td>Internet, App Maintenance</td><td>30,000</td></tr>
+          <tr><td>Miscellaneous & Contingency</td><td>20,000</td></tr>
+          <tr><td>TOTAL MONTHLY EXPENSES</td><td>1,280,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem;" class="fin-table-wrap reveal">
+    <div class="fin-table-title">💰 Revenue Streams — Year 1 Projections</div>
+    <table class="fin-table">
+      <thead><tr><th>Revenue Source</th><th>Monthly (PKR)</th><th>Annual (PKR)</th></tr></thead>
+      <tbody>
+        <tr><td>Economy Pods (8 pods × 58% occ. × PKR 300)</td><td>576,000</td><td>6,912,000</td></tr>
+        <tr><td>Standard Pods (8 pods × 52% occ. × PKR 500)</td><td>486,000</td><td>5,832,000</td></tr>
+        <tr><td>Premium Pods (4 pods × 45% occ. × PKR 850)</td><td>398,000</td><td>4,776,000</td></tr>
+        <tr><td>Student Memberships (35 × PKR 5,000)</td><td>175,000</td><td>2,100,000</td></tr>
+        <tr><td>Professional Memberships (25 × PKR 8,500)</td><td>212,500</td><td>2,550,000</td></tr>
+        <tr><td>Corporate Wellness (60 accounts × PKR 3,500)</td><td>210,000</td><td>2,520,000</td></tr>
+        <tr><td>Ancillary Services</td><td>90,000</td><td>1,080,000</td></tr>
+        <tr><td>TOTAL PROJECTED REVENUE</td><td>2,147,500</td><td>25,770,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:2.5rem;" class="reveal">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);margin-bottom:1.5rem;">3-Year Growth Projection</h3>
+    <div class="projection-grid">
+      <div class="proj-card">
+        <div class="proj-year">Year One · 2025</div>
+        <div class="proj-rev">PKR <span>25.77M</span></div>
+        <div class="proj-detail">Operating Surplus: PKR 10.41M/year<br/>Occupancy: 50–60% avg<br/>Members: 60–80 active</div>
+        <div class="proj-bar"><div class="proj-bar-fill" style="width:53%"></div></div>
+      </div>
+      <div class="proj-card highlight">
+        <div class="proj-year">Year Two · 2026</div>
+        <div class="proj-rev">PKR <span>37.20M</span></div>
+        <div class="proj-detail">Operating Surplus: PKR 21.00M/year<br/>Occupancy: 62–72% avg<br/>Members: 230–260 active</div>
+        <div class="proj-bar"><div class="proj-bar-fill" style="width:77%"></div></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-year">Year Three · 2027</div>
+        <div class="proj-rev">PKR <span>48.60M</span></div>
+        <div class="proj-detail">Operating Surplus: PKR 31.50M/year<br/>Occupancy: 68–78% avg<br/>Members: 350–400 active</div>
+        <div class="proj-bar"><div class="proj-bar-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="reveal" style="text-align:center; max-width:600px; margin: 0 auto 1rem;">
+    <span class="section-tag">Pricing</span>
+    <h2>Clear, <em>Transparent</em> Rates</h2>
+    <p class="section-desc" style="margin:0 auto;">Designed for every segment — genuinely affordable for students, excellent value for professionals.</p>
+  </div>
+  <div class="reveal" style="background:var(--navy);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:2rem;">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Service / Package</th>
+          <th>Type</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pkg-name">Economy Pod</span></td>
+          <td><span class="pkg-badge badge-eco">Per Hour</span></td>
+          <td><span class="pkg-price">PKR 300</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Standard Pod</span></td>
+          <td><span class="pkg-badge badge-std">Per Hour</span></td>
+          <td><span class="pkg-price">PKR 500</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Premium Pod</span></td>
+          <td><span class="pkg-badge badge-pre">Per Hour</span></td>
+          <td><span class="pkg-price">PKR 850</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Student Monthly Membership</span><br/><small style="color:var(--text-muted); font-size:0.78rem;">15 sessions — Economy or Standard</small></td>
+          <td><span class="pkg-badge badge-mem">Membership</span></td>
+          <td><span class="pkg-price">PKR 5,000 /mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Professional Monthly Membership</span><br/><small style="color:var(--text-muted); font-size:0.78rem;">15 sessions — any tier</small></td>
+          <td><span class="pkg-badge badge-mem">Membership</span></td>
+          <td><span class="pkg-price">PKR 8,500 /mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Corporate Wellness Package</span><br/><small style="color:var(--text-muted); font-size:0.78rem;">Per employee, quarterly/annual contract</small></td>
+          <td><span class="pkg-badge badge-corp">B2B</span></td>
+          <td><span class="pkg-price">PKR 3,500 /emp/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Locker Rental</span></td>
+          <td><span class="pkg-badge badge-eco">Ancillary</span></td>
+          <td><span class="pkg-price">PKR 80 /hr</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Quiet Zone Desk</span></td>
+          <td><span class="pkg-badge badge-std">Ancillary</span></td>
+          <td><span class="pkg-price">PKR 200 /hr</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Hygiene Add-On Kit</span><br/><small style="color:var(--text-muted); font-size:0.78rem;">Eye mask, earplugs, hand sanitiser</small></td>
+          <td><span class="pkg-badge badge-eco">Add-On</span></td>
+          <td><span class="pkg-price">PKR 80</span></td>
+        </tr>
+        <tr>
+          <td><span class="pkg-name">Airport / Transit Hub Surcharge</span></td>
+          <td><span class="pkg-badge badge-pre">All Tiers</span></td>
+          <td><span class="pkg-price">+PKR 100 /hr</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="team-header reveal">
+    <span class="section-tag">The Team</span>
+    <h2>Group <em>04</em></h2>
+    <p class="section-desc">8th Semester — Department of Marketing & International Business</p>
+  </div>
+
+  <div class="team-grid reveal">
+    <div class="team-card">
+      <div class="team-avatar">HR</div>
+      <div class="team-name">Hasnain Raza</div>
+      <div class="team-roll">F22BMRKT1M01059</div>
+      <div class="team-section">Section M2</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">UZ</div>
+      <div class="team-name">Usama Bin Zia</div>
+      <div class="team-roll">F22BMRKT1M01034</div>
+      <div class="team-section">Section M2</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">SF</div>
+      <div class="team-name">Sehar Fatima</div>
+      <div class="team-roll">F22BMRKT1M01048</div>
+      <div class="team-section">Section M2</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">AS</div>
+      <div class="team-name">Aqsa Sattar</div>
+      <div class="team-roll">F22BMRKT1M01039</div>
+      <div class="team-section">Section M1</div>
+    </div>
+  </div>
+
+  <div class="uni-box reveal">
+    <div class="uni-name">The Islamia University of Bahawalpur</div>
+    <div class="uni-dept">Department of Marketing & International Business</div>
+    <div class="uni-sub"><strong>Subject:</strong> Entrepreneurship &nbsp;·&nbsp; <strong>Submitted to:</strong> Dr. Shahid Yaqub &nbsp;·&nbsp; <strong>Semester:</strong> 8th</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONCLUSION -->
+<section id="conclusion">
+  <div class="conclusion-inner">
+    <div class="reveal">
+      <span class="section-tag">Conclusion</span>
+      <h2>Why <em>NapNest</em> Will Succeed</h2>
+      <p class="section-desc">Three fundamental questions — three clear answers.</p>
+      <ul class="conclusion-points">
+        <li>
+          <div class="c-check">✓</div>
+          <div class="c-text"><strong style="color:var(--white)">Is the need real?</strong> Pakistan's tens of millions of fatigued urban workers, students, and travellers have nowhere to rest mid-day. The need is large, growing, and unaddressed.</div>
+        </li>
+        <li>
+          <div class="c-check">✓</div>
+          <div class="c-text"><strong style="color:var(--white)">Is the model viable?</strong> PKR 867,500/month surplus at conservative occupancy. 18–22 month break-even. 26–32% ROI by Year 3. The numbers work.</div>
+        </li>
+        <li>
+          <div class="c-check">✓</div>
+          <div class="c-text"><strong style="color:var(--white)">Are risks manageable?</strong> Cultural resistance, capital intensity, and hygiene consistency all have specific, practical mitigation strategies developed from 40+ years of global precedent.</div>
+        </li>
+      </ul>
+
+      <div class="breakeven-bar" style="margin-top:2rem;">
+        <div class="be-label">
+          <span>Investment Recovery Progress</span>
+          <span>Month 18–22</span>
+        </div>
+        <div class="be-track"><div class="be-fill"></div></div>
+        <div class="be-note">Break-even on PKR 35.2M total investment</div>
+      </div>
+    </div>
+
+    <div class="tagline-box reveal">
+      <div class="tagline-main">
+        Rest.
+        <em>Recharge.</em>
+        Return.
+      </div>
+      <p class="tagline-sub">NapNest Pakistan — the first commercially managed sleep pod network in Pakistan. Pilot location: Blue Area, Islamabad.</p>
+      <div style="margin-top:2rem; display:flex; flex-direction:column; gap:0.8rem;">
+        <a href="#pods" class="btn-primary" style="text-align:center;">Explore Pod Options</a>
+        <a href="#financials" class="btn-outline" style="text-align:center;">View Full Financials</a>
+      </div>
+      <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border); font-size:0.78rem; color:var(--text-muted);">
+        Registered under Companies Act 2017 · SECP Compliant · Blue Area, Islamabad
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Nap<span>Nest</span></div>
+      <div class="footer-tagline">Pakistan's First Urban Rest Pod Network</div>
+    </div>
+    <div class="footer-info">
+      <strong>Pilot Location:</strong> Blue Area, Islamabad<br/>
+      <strong>Pod Count:</strong> 20 Pods (3 Tiers)<br/>
+      <strong>Hours:</strong> 24 Hours · 7 Days a Week<br/>
+      <strong>Booking:</strong> App · Walk-in · JazzCash · EasyPaisa
+    </div>
+    <div class="footer-info">
+      <strong>Subject:</strong> Entrepreneurship<br/>
+      <strong>Submitted to:</strong> Dr. Shahid Yaqub<br/>
+      <strong>University:</strong> Islamia University of Bahawalpur<br/>
+      <strong>Department:</strong> Marketing & International Business
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 NapNest Pakistan · Group 04 · 8th Semester</div>
+    <div>
+      <a href="#hero">↑ Back to Top</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav active states
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--amber-light)' : '';
+    });
+  });
+
+  // Smooth pod light animation stagger
+  document.querySelectorAll('.pod-light').forEach((el, i) => {
+    el.style.animationDelay = i * 0.5 + 's';
+  });
+</script>
+</body>
+</html>
